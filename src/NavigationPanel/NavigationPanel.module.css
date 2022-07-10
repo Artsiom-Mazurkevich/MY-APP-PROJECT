@@ -1,0 +1,46 @@
+.defaultLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 15px;
+    min-width: 170px;
+    text-decoration: none;
+    color: #2D2E46;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+
+.defaultLink:hover {
+    transition: 0.3s;
+    cursor: pointer;
+    background-color: #f8eff7;
+}
+
+.activeLink {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-width: 170px;
+    text-decoration: none;
+    background-color: #DCCCDB;
+    border-bottom: 3px solid #21268F;
+    color: #2D2E46;
+    font-weight: 500;
+}
+
+.linkIcon {
+    margin-right: 10px;
+}
+
+.containerLinks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}

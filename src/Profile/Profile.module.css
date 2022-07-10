@@ -1,0 +1,4 @@
+.mainProfileContainer {
+    height: calc(100vh - 7vh);
+    background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
+}
