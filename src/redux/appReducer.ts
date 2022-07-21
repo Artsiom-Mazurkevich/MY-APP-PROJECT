@@ -61,10 +61,15 @@ export type ActionTypeAppReducer = ReturnType<typeof setLoadingStatus>
 export const initialiseAppTC = ():ThunkType => dispatch => {
     dispatch(setLoadingStatus('loading'))
     authAPI.authMe().then(res => {
-        console.log(res)
+        dispatch(setInitialized(true))
+        dispatch(setLoadingStatus('successful'))
         })
         .catch(e => {
             console.log(e.response.data.error)
             dispatch(setError(e.error))
+            dispatch(setLoadingStatus('failed'))
+        })
+        .finally(() => {
+            dispatch(setLoadingStatus('idle'))
         })
 }

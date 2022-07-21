@@ -1,11 +1,7 @@
 import {ThunkType} from "./store";
 import {authAPI} from "../API/API";
-import {setError, setInitialized, setLoadingStatus} from "./appReducer";
+import {setInitialized, setLoadingStatus} from "./appReducer";
 
-type LoginStateType = {
-    data: LoginResponseType
-    isAuth: boolean
-}
 
 export type LoginResponseType = {
     _id: string
@@ -21,32 +17,38 @@ export type LoginResponseType = {
     error?: string
 }
 
-const initialState: LoginStateType = {
-    data: {
-        _id: "",
-        email: "",
-        name: "",
-        avatar: "",
-        publicCardPacksCount: 0,
-        created: new Date(),
-        updated: new Date(),
-        isAdmin: false,
-        verified: false,
-        rememberMe: false,
-        error: ""
-    },
-    isAuth: false
+const initialState: LoginResponseType = {
+    _id: '',
+    email: '',
+    name: '',
+    avatar: '',
+    publicCardPacksCount: 0,
+    created: new Date(),
+    updated: new Date(),
+    isAdmin: false,
+    verified: false,
+    rememberMe: false,
+    error: '',
 }
 
 export type ActionTypeLoginReducer = ReturnType<typeof loginAC>
 
-export const loginReducer = (state: LoginStateType = initialState, action: ActionTypeLoginReducer) => {
+export const loginReducer = (state: LoginResponseType = initialState, action: ActionTypeLoginReducer) => {
     switch (action.type) {
         case "login/SET-USER": {
             return {
                 ...state,
-                data: action.payload.data,
-                isAuth: action.payload.isAuth
+                _id: action.payload.newState._id,
+                email: action.payload.newState.email,
+                name: action.payload.newState.name,
+                avatar: action.payload.newState.avatar,
+                publicCardPacksCount: action.payload.newState.publicCardPacksCount,
+                created: action.payload.newState.created,
+                updated: action.payload.newState.updated,
+                isAdmin: action.payload.newState.isAdmin,
+                verified: action.payload.newState.verified,
+                rememberMe: action.payload.newState.rememberMe,
+                error: action.payload.newState.error,
             }
         }
         default: {
@@ -55,12 +57,11 @@ export const loginReducer = (state: LoginStateType = initialState, action: Actio
     }
 }
 
-export const loginAC = (data: LoginResponseType, isAuth: boolean) => {
+export const loginAC = (newState: LoginResponseType) => {
     return {
         type: "login/SET-USER",
         payload: {
-            data,
-            isAuth
+            newState
         }
     } as const
 }
@@ -69,7 +70,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
     dispatch(setLoadingStatus('loading'))
     authAPI.login(email, password, rememberMe)
         .then(res => {
-            dispatch(loginAC(res.data, true))
+            dispatch(loginAC(res.data))
             dispatch(setInitialized(true))
             dispatch(setLoadingStatus('successful'))
         })
