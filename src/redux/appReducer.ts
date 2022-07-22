@@ -1,5 +1,6 @@
 import {ThunkType} from "./store";
 import {authAPI} from "../API/API";
+import {loginAC} from "./loginReducer";
 
 export type LoadingStatusType = "idle" | "loading" | "successful" | "failed"
 
@@ -62,6 +63,7 @@ export const initialiseAppTC = ():ThunkType => dispatch => {
     dispatch(setLoadingStatus('loading'))
     authAPI.authMe().then(res => {
         dispatch(setInitialized(true))
+        dispatch(loginAC(res.data))
         dispatch(setLoadingStatus('successful'))
         })
         .catch(e => {
@@ -70,6 +72,7 @@ export const initialiseAppTC = ():ThunkType => dispatch => {
             dispatch(setLoadingStatus('failed'))
         })
         .finally(() => {
+            dispatch(setInitialized(true))
             dispatch(setLoadingStatus('idle'))
         })
 }

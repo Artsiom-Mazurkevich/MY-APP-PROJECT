@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import {
     TextInput,
     PasswordInput,
@@ -9,7 +9,7 @@ import {
     Text,
     Container,
     Group,
-    Button
+    Button, LoadingOverlay
 } from '@mantine/core';
 import {useForm} from "@mantine/hooks";
 import {useAppDispatch} from "../redux/store";
@@ -32,6 +32,7 @@ type InitialValuesType = {
 export const AppForm = React.memo( function (props: IForm) {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const [visible, setVisible] = useState(false);
 
     const form = useForm<InitialValuesType>({
         initialValues: {
@@ -51,6 +52,7 @@ export const AppForm = React.memo( function (props: IForm) {
 
 
     const handleSubmit = (values: InitialValuesType) => {
+        setVisible((v) => !v)
         if (props.type === 'LOGIN') {
             dispatch(loginTC(values.email, values.password, values.rememberMe))
         }
@@ -68,6 +70,7 @@ export const AppForm = React.memo( function (props: IForm) {
             style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: "80%"}}
             size={420}
         >
+            <LoadingOverlay visible={visible} />
             <Title
                 align="center"
                 sx={(theme) => ({fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900})}

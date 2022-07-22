@@ -7,7 +7,7 @@
     padding: 0 15px;
     min-width: 170px;
     text-decoration: none;
-    color: #2D2E46;
+    color: white;
     font-weight: 500;
     transition: 0.3s;
 }
@@ -16,7 +16,7 @@
 .defaultLink:hover {
     transition: 0.3s;
     cursor: pointer;
-    background-color: #f8eff7;
+    background-color: #0044ff;
 }
 
 .activeLink {
@@ -27,9 +27,9 @@
     height: 100%;
     min-width: 170px;
     text-decoration: none;
-    background-color: #DCCCDB;
-    border-bottom: 3px solid #21268F;
-    color: #2D2E46;
+    background-color: #366EFF;
+    border-bottom: 3px solid #1bab06;
+    color: white;
     font-weight: 500;
 }
 

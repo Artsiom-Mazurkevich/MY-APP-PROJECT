@@ -24,7 +24,7 @@ export function NavigationPanel() {
     ));
 
     return (
-        <Header height={'7vh'} style={{backgroundColor: '#EBE0E9'}}>
+        <Header height={'7vh'} style={{backgroundColor: '#0166ea'}}>
             <Container className={s.containerLinks}>
                 {links}
             </Container>
