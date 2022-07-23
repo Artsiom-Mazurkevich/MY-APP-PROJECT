@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {RegistrationResponseType} from "../redux/registerReducer";
-import {LoginResponseType} from "../redux/loginReducer";
+import {LoginType} from "../redux/loginReducer";
 
 export const instance = axios.create({
     // baseURL: process.env.REACT_APP_BACK_URL || "http://localhost:7542/2.0/",
@@ -20,7 +20,7 @@ export const authAPI = {
         })
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<{}, AxiosResponse<LoginResponseType>>("/auth/login", {email, password,rememberMe})
+        return instance.post<{}, AxiosResponse<LoginType>>("/auth/login", {email, password,rememberMe})
     },
     authMe(){
         return instance.post('/auth/me', {})

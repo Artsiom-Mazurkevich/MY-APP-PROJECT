@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
 import {BrowserRouter} from "react-router-dom";
+import {NotificationsProvider} from "@mantine/notifications";
 
 
 const root = ReactDOM.createRoot(
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App/>
+            <NotificationsProvider>
+                <App/>
+            </NotificationsProvider>
         </Provider>
     </BrowserRouter>
 );

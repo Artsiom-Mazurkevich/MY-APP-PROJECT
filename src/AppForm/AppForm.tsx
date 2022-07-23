@@ -1,21 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-    TextInput,
-    PasswordInput,
-    Checkbox,
     Anchor,
-    Paper,
-    Title,
-    Text,
+    Button,
+    Checkbox,
     Container,
     Group,
-    Button, LoadingOverlay
+    LoadingOverlay,
+    Paper,
+    PasswordInput,
+    Text,
+    TextInput,
+    Title
 } from '@mantine/core';
 import {useForm} from "@mantine/hooks";
-import {useAppDispatch} from "../redux/store";
+import {useAppDispatch, useAppSelector} from "../redux/store";
 import {loginTC} from "../redux/loginReducer";
 import {registerTC} from "../redux/registerReducer";
 import {useNavigate} from "react-router-dom";
+import {NotificationApp} from "../Notification/Notification";
 
 
 interface IForm {
@@ -30,9 +32,9 @@ type InitialValuesType = {
 
 
 export const AppForm = React.memo( function (props: IForm) {
+    const loadingStatus = useAppSelector(state => state.app.loadingStatus)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const [visible, setVisible] = useState(false);
 
     const form = useForm<InitialValuesType>({
         initialValues: {
@@ -52,13 +54,13 @@ export const AppForm = React.memo( function (props: IForm) {
 
 
     const handleSubmit = (values: InitialValuesType) => {
-        setVisible((v) => !v)
         if (props.type === 'LOGIN') {
             dispatch(loginTC(values.email, values.password, values.rememberMe))
         }
         if (props.type === 'REGISTER') {
             dispatch(registerTC(values.email, values.password))
         }
+
         // if (props.type === 'FORGOT') {
         //
         // }
@@ -70,7 +72,8 @@ export const AppForm = React.memo( function (props: IForm) {
             style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: "80%"}}
             size={420}
         >
-            <LoadingOverlay visible={visible} />
+            {loadingStatus === 'failed' && <NotificationApp loadingStatus={loadingStatus}/>}
+            <LoadingOverlay visible={loadingStatus === 'loading'} style={{position: 'absolute', top: '-10%'}}/>
             <Title
                 align="center"
                 sx={(theme) => ({fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900})}
