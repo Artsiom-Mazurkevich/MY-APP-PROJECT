@@ -9,9 +9,6 @@ export const instance = axios.create({
 })
 
 
-
-
-
 export const authAPI = {
     register(email: string, password: string) {
         return instance.post<{}, AxiosResponse<RegistrationResponseType>>("/auth/register", {
@@ -20,12 +17,15 @@ export const authAPI = {
         })
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<{}, AxiosResponse<LoginType>>("/auth/login", {email, password,rememberMe})
+        return instance.post<{}, AxiosResponse<LoginType>>("/auth/login", {email, password, rememberMe})
     },
-    authMe(){
+    authMe() {
         return instance.post('/auth/me', {})
     },
-    recovery(email:string) {
-        return instance.post('/auth/forgot')
-    }
+//     recovery(email: string) {
+//         return instance.post('/auth/forgot', {
+//             email, message: `<div style="background-color: lime; padding: 15px">password recovery link:
+// <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`
+//         })
+//     }
 }

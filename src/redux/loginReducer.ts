@@ -64,6 +64,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
 }
 
 
-export const recoveryPassword = (email: string): ThunkType => dispatch => {
-
-}
+// export const recoveryPassword = (email: string): ThunkType => dispatch => {
+//
+// }
