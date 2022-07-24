@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Anchor,
     Button,
@@ -17,7 +17,6 @@ import {useAppDispatch, useAppSelector} from "../redux/store";
 import {loginTC} from "../redux/loginReducer";
 import {registerTC} from "../redux/registerReducer";
 import {useNavigate} from "react-router-dom";
-import {NotificationApp} from "../Notification/Notification";
 
 
 interface IForm {
@@ -31,7 +30,7 @@ type InitialValuesType = {
 }
 
 
-export const AppForm = React.memo( function (props: IForm) {
+export const AppForm = React.memo(function (props: IForm) {
     const loadingStatus = useAppSelector(state => state.app.loadingStatus)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
@@ -59,11 +58,8 @@ export const AppForm = React.memo( function (props: IForm) {
         }
         if (props.type === 'REGISTER') {
             dispatch(registerTC(values.email, values.password))
+            navigate('/login')
         }
-
-        // if (props.type === 'FORGOT') {
-        //
-        // }
     }
 
 
@@ -72,7 +68,6 @@ export const AppForm = React.memo( function (props: IForm) {
             style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', height: "80%"}}
             size={420}
         >
-            {loadingStatus === 'failed' && <NotificationApp loadingStatus={loadingStatus}/>}
             <LoadingOverlay visible={loadingStatus === 'loading'} style={{position: 'absolute', top: '-10%'}}/>
             <Title
                 align="center"
@@ -86,7 +81,7 @@ export const AppForm = React.memo( function (props: IForm) {
                 {props.type === 'LOGIN' && 'Do not have an account yet?'}
                 {props.type === 'FORGOT' && 'Enter your Email'}
                 {props.type === 'REGISTER' && ''}{' '}
-                <Anchor<'a'> href="#" size="sm" onClick={(event) => {event.preventDefault(); navigate('/register')}}>
+                <Anchor<'a'> href="" size="sm" onClick={(event) => {event.preventDefault(); navigate('/register')}}>
                     {props.type === 'LOGIN' && 'Create account'}
                     {props.type === 'FORGOT' && ''}
                     {props.type === 'REGISTER' && ''}
@@ -123,7 +118,7 @@ export const AppForm = React.memo( function (props: IForm) {
                         />
                         }
                         {props.type === 'LOGIN' &&
-                            <Anchor<'a'> onClick={(event) => event.preventDefault()} href="#" size="sm">
+                            <Anchor<'a'> onClick={(event) => {event.preventDefault(); navigate('/forgot')}} size="sm">
                                 Forgot password?
                             </Anchor>
                         }

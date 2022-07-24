@@ -25,4 +25,7 @@ export const authAPI = {
     authMe(){
         return instance.post('/auth/me', {})
     },
+    recovery(email:string) {
+        return instance.post('/auth/forgot')
+    }
 }

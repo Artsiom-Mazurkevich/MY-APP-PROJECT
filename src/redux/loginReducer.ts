@@ -1,6 +1,7 @@
 import {ThunkType} from "./store";
 import {authAPI} from "../API/API";
 import {setInitialized, setLoadingStatus} from "./appReducer";
+import {showError} from "../Notification/Notification";
 
 
 export type LoginType = {
@@ -17,7 +18,7 @@ const initialState: LoginType = {
     error: '',
 }
 
-export type ActionTypeLoginReducer = ReturnType<typeof loginAC> | ReturnType<typeof setErrorLoginResponse>
+export type ActionTypeLoginReducer = ReturnType<typeof loginAC>
 
 export const loginReducer = (state: LoginType = initialState, action: ActionTypeLoginReducer) => {
     switch (action.type) {
@@ -29,8 +30,6 @@ export const loginReducer = (state: LoginType = initialState, action: ActionType
                 rememberMe: action.payload.newState.rememberMe,
             }
         }
-        case "ERROR":
-            return {...state, error: action.payload.error}
         default: {
             return state
         }
@@ -46,7 +45,6 @@ export const loginAC = (newState: LoginType) => {
     } as const
 }
 
-export const setErrorLoginResponse = (error: string) => ({type: 'ERROR', payload: {error}} as const)
 
 export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkType => dispatch => {
     dispatch(setLoadingStatus('loading'))
@@ -58,10 +56,14 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
         })
         .catch(e => {
             dispatch(setLoadingStatus('failed'))
-            dispatch(setErrorLoginResponse(e.error))
-            console.log(e.response.data.error)
+            showError(e.response.data.error)
         })
         .finally(() => {
             dispatch(setLoadingStatus('idle'))
         })
+}
+
+
+export const recoveryPassword = (email: string): ThunkType => dispatch => {
+
 }

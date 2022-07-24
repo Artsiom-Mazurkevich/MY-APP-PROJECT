@@ -1,17 +1,7 @@
 import React from 'react';
 import {showNotification} from "@mantine/notifications";
-import {LoadingStatusType} from "../redux/appReducer";
 
 
-interface INotification {
-    loadingStatus: LoadingStatusType
+export const showError = (messageError: string, color: string = 'red') => {
+    showNotification({message: messageError, autoClose: 5000, color})
 }
-
-export const NotificationApp = ({loadingStatus}:INotification) => {
-
-    return (
-        <>
-            {showNotification({message: '', autoClose: 5000, color: loadingStatus === 'failed' ? 'red' : 'green'})}
-        </>
-    );
-};
