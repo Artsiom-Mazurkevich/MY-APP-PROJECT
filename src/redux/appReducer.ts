@@ -1,6 +1,7 @@
 import {ThunkType} from "./store";
 import {authAPI} from "../API/API";
 import {loginAC} from "./loginReducer";
+import {changeName} from "./profileReducer";
 
 export type LoadingStatusType = "idle" | "loading" | "successful" | "failed"
 
@@ -65,9 +66,9 @@ export const initialiseAppTC = ():ThunkType => dispatch => {
         dispatch(setInitialized(true))
         dispatch(loginAC(res.data))
         dispatch(setLoadingStatus('successful'))
+        dispatch(changeName(res.data.name))
         })
         .catch(e => {
-            console.log(e.response.data.error)
             dispatch(setError(e.error))
             dispatch(setLoadingStatus('failed'))
         })

@@ -21,10 +21,22 @@ export const authAPI = {
     authMe() {
         return instance.post('/auth/me', {})
     },
+    logOut() {
+        return instance.delete('/auth/me', {})
+    }
 //     recovery(email: string) {
 //         return instance.post('/auth/forgot', {
 //             email, message: `<div style="background-color: lime; padding: 15px">password recovery link:
 // <a href='http://localhost:3000/#/set-new-password/$token$'>link</a></div>`
 //         })
 //     }
+}
+
+export const profileAPI = {
+    setNewName (name: string) {
+        return instance.put('/auth/me', {name})
+    },
+    setNewAvatar (avatar: string) {
+        return instance.put('/auth/me', {avatar})
+    },
 }

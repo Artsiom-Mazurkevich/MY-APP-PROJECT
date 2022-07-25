@@ -21,7 +21,7 @@ function App() {
         if (!isLoggedIn) {
             navigate('login')
         }
-    }, [dispatch]);
+    }, [dispatch, isLoggedIn]);
 
     if (!initialized) {
         return <Loader variant={'bars'} size={'xl'} style={{position: 'absolute', top: '50%', left: '50%'}}/>

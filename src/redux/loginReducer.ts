@@ -7,9 +7,9 @@ import {changeName} from "./profileReducer";
 
 export type LoginType = {
     _id: string
-    email: string
-    rememberMe: boolean
-    error: string
+    email?: string
+    rememberMe?: boolean
+    error?: string
 }
 
 const initialState: LoginType = {
