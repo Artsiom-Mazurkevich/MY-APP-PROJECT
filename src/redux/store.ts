@@ -4,11 +4,13 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {ActionTypeAppReducer, appReducer} from "./appReducer";
 import {ActionTypeRegisterReducer, registerReducer} from "./registerReducer";
 import {ActionTypeLoginReducer, loginReducer} from "./loginReducer";
+import {profileReducer} from "./profileReducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
     register: registerReducer,
     login: loginReducer,
+    profile: profileReducer,
 })
 
 

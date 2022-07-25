@@ -2,6 +2,7 @@ import {ThunkType} from "./store";
 import {authAPI} from "../API/API";
 import {setInitialized, setLoadingStatus} from "./appReducer";
 import {showError} from "../Notification/Notification";
+import {changeName} from "./profileReducer";
 
 
 export type LoginType = {
@@ -52,6 +53,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
         .then(res => {
             dispatch(loginAC(res.data))
             dispatch(setInitialized(true))
+            dispatch(changeName(res.data.name))
             dispatch(setLoadingStatus('successful'))
         })
         .catch(e => {

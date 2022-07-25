@@ -7,6 +7,7 @@ import {initialiseAppTC} from "./redux/appReducer";
 import {MainContent} from "./MainContent/MainContent";
 import {Loader} from "@mantine/core";
 import {FormPage} from "./LoginPage/FormPage";
+import {Profile} from "./Profile/Profile";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -35,6 +36,7 @@ function App() {
                 <Route path={'/forgot'} element={<AppForm type={'FORGOT'}/>}></Route>
                 <Route path={'/register'} element={<AppForm type={'REGISTER'}/>}></Route>
                 <Route path={'/login'} element={<FormPage>{<AppForm type={'LOGIN'}/>}</FormPage>}></Route>
+                <Route path={'/profile'} element={<Profile/>}></Route>
             </Routes>
         </div>
     );
