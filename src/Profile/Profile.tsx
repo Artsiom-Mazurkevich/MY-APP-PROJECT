@@ -1,10 +1,11 @@
 import React from 'react';
 import s from './Profile.module.css'
-import {ActionIcon, Avatar, Button, Center, Input, Paper, Text} from "@mantine/core";
+import {ActionIcon, Avatar, Button, Center, Input, Modal, Paper, Text, TextInput} from "@mantine/core";
 import {IconCamera, IconLogout, IconMoodBoy, IconPencil} from "@tabler/icons";
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {useInputState} from "@mantine/hooks";
 import {logOut, setNewNameUser} from "../redux/profileReducer";
+import {Dropzone, IMAGE_MIME_TYPE} from "@mantine/dropzone";
 
 export const Profile = React.memo((props) => {
     const email = useAppSelector(state => state.login.email)
@@ -12,6 +13,7 @@ export const Profile = React.memo((props) => {
     const dispatch = useAppDispatch()
     const [editMode, setEditMode] = React.useState<boolean>(false)
     const [nameUser, setNameUser] = useInputState(name);
+    const [opened, setOpened] = React.useState(false);
 
     const handleSetNewName = (e: any) => {
         dispatch(setNewNameUser(nameUser))
@@ -19,13 +21,19 @@ export const Profile = React.memo((props) => {
     }
 
     return <>
+        <Modal centered
+               opened={opened}
+               transition="fade"
+               onClose={() => setOpened(false)}>
+            <TextInput placeholder={'paste URL'} autoFocus/>
+        </Modal>
         <div className={s.mainProfileContainer}>
             <Paper radius={'md'} withBorder shadow={'sm'} p={'md'}
                    sx={(theme) => ({minWidth: '32%', alignItems: 'center'})}>
                 <h1 className={s.personalInformation}>Personal Information</h1>
                 <Avatar size={140} radius={120} alt={'avatar'} mx={'auto'} mb={'10%'}>
                     <IconMoodBoy size={100}/>
-                    <ActionIcon className={s.actionIconCamera}>
+                    <ActionIcon className={s.actionIconCamera} onClick={() => setOpened(true)}>
                         <IconCamera/>
                     </ActionIcon>
                 </Avatar>
@@ -39,7 +47,7 @@ export const Profile = React.memo((props) => {
                                     <IconPencil/>
                                 </ActionIcon>
                             </>
-                            : <Input autoFocus value={nameUser} onChange={setNameUser} onBlur={handleSetNewName}/>
+                            : <Input className={s.input} autoFocus value={nameUser} onChange={setNameUser} onBlur={handleSetNewName}/>
                         }
                 </div>
                 <Text align="center" color="dimmed" size="md" mb={'10%'}>{email}</Text>

@@ -24,10 +24,15 @@
     justify-content: center;
     flex-direction: row;
     margin-bottom: 7%;
+    min-height: 110px;
 }
 
 .actionIconCamera {
     position: absolute;
     top: 100px;
     left: 93px;
+}
+
+.input {
+    width: 90%;
 }
