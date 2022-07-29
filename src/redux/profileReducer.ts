@@ -1,6 +1,6 @@
 import {ThunkType} from "./store";
 import {authAPI, profileAPI} from "../API/API";
-import {showError} from "../Notification/Notification";
+import {showStatusMessage} from "../Loader&Notifications/Notification";
 import {loginAC} from "./loginReducer";
 
 type InitialStateType = {
@@ -35,7 +35,7 @@ export const setNewNameUser = (newName: string):ThunkType => dispatch => {
             dispatch(changeName(res.data.updatedUser.name))
         })
         .catch(e => {
-            showError(e.response.data.error)
+            showStatusMessage(e.response.data.error)
         })
 }
 
@@ -45,7 +45,7 @@ export const setNewAvatar = (newAvatar: string):ThunkType => dispatch => {
             dispatch(changeAvatar(res.data.updatedUser.avatar))
         })
         .catch(e => {
-            showError(e.response.data.error)
+            showStatusMessage(e.response.data.error)
         })
 }
 
@@ -54,6 +54,6 @@ export const logOut = ():ThunkType => dispatch => {
     authAPI.logOut()
         .then(res => {
             dispatch(loginAC({_id: ''}))
-            showError(res.data.info, 'green')
+            showStatusMessage(res.data.info, 'green')
         })
 }

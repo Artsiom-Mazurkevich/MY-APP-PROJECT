@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {NotificationsProvider} from "@mantine/notifications";
 
 
@@ -13,13 +13,13 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter>
+    <HashRouter>
         <Provider store={store}>
             <NotificationsProvider>
                 <App/>
             </NotificationsProvider>
         </Provider>
-    </BrowserRouter>
+    </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

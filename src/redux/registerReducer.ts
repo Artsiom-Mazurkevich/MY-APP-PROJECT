@@ -1,6 +1,6 @@
 import {ThunkType} from "./store";
 import {authAPI} from "../API/API";
-import {showError} from "../Notification/Notification";
+import {showStatusMessage} from "../Loader&Notifications/Notification";
 
 export type RegistrationResponseType = {
     addedUser: {
@@ -55,10 +55,10 @@ export const registerTC = (email: string, password: string):ThunkType => dispatc
     authAPI.register(email, password)
         .then(response => {
             dispatch(registerAC(response.data.addedUser.email, true))
-            showError('User added successfully!', 'green')
+            showStatusMessage('User added successfully!', 'green')
         })
         .catch(response => {
             console.log(response.response.data.error)
-            showError(response.response.data.error)
+            showStatusMessage(response.response.data.error)
         })
 }

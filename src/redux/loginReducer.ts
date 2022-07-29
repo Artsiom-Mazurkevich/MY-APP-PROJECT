@@ -1,7 +1,7 @@
 import {ThunkType} from "./store";
 import {authAPI} from "../API/API";
 import {setInitialized, setLoadingStatus} from "./appReducer";
-import {showError} from "../Notification/Notification";
+import {showStatusMessage} from "../Loader&Notifications/Notification";
 import {changeName} from "./profileReducer";
 
 
@@ -58,7 +58,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
         })
         .catch(e => {
             dispatch(setLoadingStatus('failed'))
-            showError(e.response.data.error)
+            showStatusMessage(e.response.data.error)
         })
         .finally(() => {
             dispatch(setLoadingStatus('idle'))

@@ -5,7 +5,6 @@ import {IconCamera, IconLogout, IconMoodBoy, IconPencil} from "@tabler/icons";
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {useInputState} from "@mantine/hooks";
 import {logOut, setNewNameUser} from "../redux/profileReducer";
-import {Dropzone, IMAGE_MIME_TYPE} from "@mantine/dropzone";
 
 export const Profile = React.memo((props) => {
     const email = useAppSelector(state => state.login.email)
@@ -52,7 +51,7 @@ export const Profile = React.memo((props) => {
                 </div>
                 <Text align="center" color="dimmed" size="md" mb={'10%'}>{email}</Text>
                 <Center>
-                    <Button leftIcon={<IconLogout/>} radius={'xl'} variant={'default'} size={'md'} onClick={() => {dispatch(logOut())}}>
+                    <Button mb={25} leftIcon={<IconLogout/>} radius={'xl'} variant={'default'} size={'md'} onClick={() => {dispatch(logOut())}}>
                         Log out
                     </Button>
                 </Center>

@@ -6,7 +6,6 @@ import {useAppDispatch, useAppSelector} from "./redux/store";
 import {initialiseAppTC} from "./redux/appReducer";
 import {MainContent} from "./MainContent/MainContent";
 import {Loader} from "@mantine/core";
-import {FormPage} from "./LoginPage/FormPage";
 import {Profile} from "./Profile/Profile";
 
 function App() {
@@ -31,11 +30,10 @@ function App() {
     return (
         <div className={s.appBackground}>
             {isLoggedIn && <MainContent/>}
-            {/*{!isLoggedIn && <AppForm type={'LOGIN'}/>}*/}
             <Routes>
                 <Route path={'/forgot'} element={<AppForm type={'FORGOT'}/>}></Route>
                 <Route path={'/register'} element={<AppForm type={'REGISTER'}/>}></Route>
-                <Route path={'/login'} element={<FormPage>{<AppForm type={'LOGIN'}/>}</FormPage>}></Route>
+                <Route path={'/login'} element={<AppForm type={'LOGIN'}/>}></Route>
                 <Route path={'/profile'} element={<Profile/>}></Route>
             </Routes>
         </div>
