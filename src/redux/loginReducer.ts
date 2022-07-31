@@ -1,6 +1,6 @@
 import {ThunkType} from "./store";
 import {authAPI} from "../API/API";
-import {setInitialized, setLoadingStatus} from "./appReducer";
+import {setLoadingStatus} from "./appReducer";
 import {showStatusMessage} from "../Loader&Notifications/Notification";
 import {changeName} from "./profileReducer";
 
@@ -8,27 +8,23 @@ import {changeName} from "./profileReducer";
 export type LoginType = {
     _id: string
     email?: string
-    rememberMe?: boolean
-    error?: string
 }
 
 const initialState: LoginType = {
     _id: '',
     email: '',
-    rememberMe: false,
-    error: '',
+
 }
 
 export type ActionTypeLoginReducer = ReturnType<typeof loginAC>
 
-export const loginReducer = (state: LoginType = initialState, action: ActionTypeLoginReducer) => {
+export const loginReducer = (state: LoginType = initialState, action: ActionTypeLoginReducer):LoginType  => {
     switch (action.type) {
         case "login/SET-USER": {
             return {
                 ...state,
                 _id: action.payload.newState._id,
                 email: action.payload.newState.email,
-                rememberMe: action.payload.newState.rememberMe,
             }
         }
         default: {
@@ -52,7 +48,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
     authAPI.login(email, password, rememberMe)
         .then(res => {
             dispatch(loginAC(res.data))
-            dispatch(setInitialized(true))
             dispatch(changeName(res.data.name))
             dispatch(setLoadingStatus('successful'))
         })
@@ -60,12 +55,15 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
             dispatch(setLoadingStatus('failed'))
             showStatusMessage(e.response.data.error)
         })
-        .finally(() => {
-            dispatch(setLoadingStatus('idle'))
-        })
 }
 
-
-// export const recoveryPassword = (email: string): ThunkType => dispatch => {
-//
-// }
+export const logOut = ():ThunkType => dispatch => {
+    authAPI.logOut()
+        .then(res => {
+            dispatch(loginAC({_id: ''}))
+            showStatusMessage(res.data.info, 'green')
+        })
+        .catch(e => {
+            showStatusMessage(e.response.data.error)
+        })
+}

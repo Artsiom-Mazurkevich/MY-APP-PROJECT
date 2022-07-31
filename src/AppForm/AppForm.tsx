@@ -16,7 +16,7 @@ import {useForm} from "@mantine/hooks";
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {loginTC} from "../redux/loginReducer";
 import {registerTC} from "../redux/registerReducer";
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 
 
 interface IForm {
@@ -34,6 +34,7 @@ export const AppForm = React.memo(function (props: IForm) {
     const loadingStatus = useAppSelector(state => state.app.loadingStatus)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+    const isLoggedIn = useAppSelector(state => state.login._id)
 
     const form = useForm<InitialValuesType>({
         initialValues: {
@@ -60,6 +61,10 @@ export const AppForm = React.memo(function (props: IForm) {
             dispatch(registerTC(values.email, values.password))
             navigate('/login')
         }
+    }
+
+    if (isLoggedIn) {
+        return <Navigate to={'/profile'}/>
     }
 
 

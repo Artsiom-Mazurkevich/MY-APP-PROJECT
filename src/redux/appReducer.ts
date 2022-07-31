@@ -1,4 +1,4 @@
-import {ThunkType} from "./store";
+import {store, ThunkType} from "./store";
 import {authAPI} from "../API/API";
 import {loginAC} from "./loginReducer";
 import {changeName} from "./profileReducer";
@@ -56,24 +56,19 @@ export type ActionTypeAppReducer = ReturnType<typeof setLoadingStatus>
     | ReturnType<typeof setError>
 
 
-
-
-
-
-export const initialiseAppTC = ():ThunkType => dispatch => {
+export const initialiseAppTC = (): ThunkType => dispatch => {
     dispatch(setLoadingStatus('loading'))
     authAPI.authMe().then(res => {
         dispatch(setInitialized(true))
-        dispatch(loginAC(res.data))
+        dispatch(store.dispatch(loginAC(res.data)))
         dispatch(setLoadingStatus('successful'))
         dispatch(changeName(res.data.name))
-        })
+    })
         .catch(e => {
             dispatch(setError(e.error))
             dispatch(setLoadingStatus('failed'))
         })
         .finally(() => {
             dispatch(setInitialized(true))
-            dispatch(setLoadingStatus('idle'))
         })
 }

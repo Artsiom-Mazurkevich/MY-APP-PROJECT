@@ -1,7 +1,6 @@
 import {ThunkType} from "./store";
-import {authAPI, profileAPI} from "../API/API";
+import {profileAPI} from "../API/API";
 import {showStatusMessage} from "../Loader&Notifications/Notification";
-import {loginAC} from "./loginReducer";
 
 type InitialStateType = {
     avatar: string
@@ -14,7 +13,7 @@ const InitialState: InitialStateType = {
 }
 
 export type ActionTypeProfileReducer = ReturnType<typeof changeName> | ReturnType<typeof changeAvatar>
-export const profileReducer = (state: InitialStateType = InitialState, action: ActionTypeProfileReducer) => {
+export const profileReducer = (state: InitialStateType = InitialState, action: ActionTypeProfileReducer) :InitialStateType => {
     switch (action.type) {
         case "SET-NAME":
             return {...state, name: action.name}
@@ -46,14 +45,5 @@ export const setNewAvatar = (newAvatar: string):ThunkType => dispatch => {
         })
         .catch(e => {
             showStatusMessage(e.response.data.error)
-        })
-}
-
-
-export const logOut = ():ThunkType => dispatch => {
-    authAPI.logOut()
-        .then(res => {
-            dispatch(loginAC({_id: ''}))
-            showStatusMessage(res.data.info, 'green')
         })
 }

@@ -4,7 +4,8 @@ import {ActionIcon, Avatar, Button, Center, Input, Modal, Paper, Text, TextInput
 import {IconCamera, IconLogout, IconMoodBoy, IconPencil} from "@tabler/icons";
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {useInputState} from "@mantine/hooks";
-import {logOut, setNewNameUser} from "../redux/profileReducer";
+import {setNewNameUser} from "../redux/profileReducer";
+import {logOut} from "../redux/loginReducer";
 
 export const Profile = React.memo((props) => {
     const email = useAppSelector(state => state.login.email)
