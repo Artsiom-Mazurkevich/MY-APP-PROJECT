@@ -8,6 +8,9 @@ import {Loader} from "@mantine/core";
 import {Profile} from "./Profile/Profile";
 import {MainContent} from "./MainContent/MainContent";
 import {IsAuthHoc} from "./HOC/IsAuthHoc";
+import {LoginPage} from "./AppForm/LoginPage";
+import {RegistrationPage} from "./AppForm/RegistrationPage";
+import {ForgotPasswordPage} from "./AppForm/ForgotPasswordPage";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -30,9 +33,9 @@ function App() {
             : <div className={s.appBackground}>
             <Routes>
                 <Route path={'/'} element={<Navigate to={'/profile'}/>}></Route>
-                <Route path={'/forgot'} element={<AppForm type={'FORGOT'}/>}></Route>
-                <Route path={'/register'} element={<AppForm type={'REGISTER'}/>}></Route>
-                <Route path={'/login'} element={<AppForm type={'LOGIN'}/>}></Route>
+                <Route path={'/forgot'} element={<ForgotPasswordPage/>}></Route>
+                <Route path={'/register'} element={<RegistrationPage/>}></Route>
+                <Route path={'/login'} element={<LoginPage/>}></Route>
                 <Route path={'/profile'} element={<IsAuthHoc><MainContent/></IsAuthHoc>}></Route>
                 {/*<Route path={'*'} element={<Navigate to={<div></div>}/>}></Route>*/}
             </Routes>
