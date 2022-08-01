@@ -28,9 +28,7 @@
 }
 
 .actionIconCamera {
-    position: absolute;
-    top: 100px;
-    left: 93px;
+    cursor: pointer;
 }
 
 .input {

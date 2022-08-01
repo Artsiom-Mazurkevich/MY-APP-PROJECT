@@ -55,10 +55,8 @@ export const registerTC = (email: string, password: string):ThunkType => dispatc
     authAPI.register(email, password)
         .then(response => {
             dispatch(registerAC(response.data.addedUser.email, true))
-            showStatusMessage('User added successfully!', 'green')
         })
         .catch(response => {
-            console.log(response.response.data.error)
             showStatusMessage(response.response.data.error)
         })
 }

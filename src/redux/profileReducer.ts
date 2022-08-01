@@ -8,7 +8,7 @@ type InitialStateType = {
 }
 
 const InitialState: InitialStateType = {
-    avatar: '',
+    avatar: 'https://static.vecteezy.com/system/resources/previews/002/013/887/original/samurai-head-with-oni-mask-free-vector.jpg',
     name: 'Your Name'
 }
 
