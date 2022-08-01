@@ -1,5 +1,5 @@
-import React from 'react';
-import {useAppDispatch} from "../redux/store";
+import React, {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from "../redux/store";
 import {useForm} from "@mantine/hooks";
 import s from "../App.module.css";
 import {Anchor, Button, Container, Group, Paper, PasswordInput, Text, TextInput, Title} from "@mantine/core";
@@ -16,6 +16,7 @@ type InitialValuesType = {
 
 
 export const RegistrationPage = () => {
+    const isRegistered = useAppSelector(state => state.register.isRegistered)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -41,6 +42,12 @@ export const RegistrationPage = () => {
     const handleSubmit = (values: InitialValuesType) => {
         dispatch(registerTC(values.email, values.password))
     }
+
+    useEffect(() => {
+        if (isRegistered) {
+            navigate('/login')
+        }
+    }, [isRegistered])
 
 
     return (

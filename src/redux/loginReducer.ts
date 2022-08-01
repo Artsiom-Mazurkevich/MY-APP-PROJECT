@@ -61,7 +61,6 @@ export const logOut = ():ThunkType => dispatch => {
     authAPI.logOut()
         .then(res => {
             dispatch(loginAC({_id: ''}))
-            showStatusMessage(res.data.info, 'green')
         })
         .catch(e => {
             showStatusMessage(e.response.data.error)

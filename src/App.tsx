@@ -1,21 +1,19 @@
 import React, {useEffect} from 'react';
 import s from './App.module.css';
-import {AppForm} from "./AppForm/AppForm";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "./redux/store";
 import {initialiseAppTC} from "./redux/appReducer";
 import {Loader} from "@mantine/core";
 import {Profile} from "./Profile/Profile";
-import {MainContent} from "./MainContent/MainContent";
-import {IsAuthHoc} from "./HOC/IsAuthHoc";
+import {RequireAuth} from "./HOC/RequireAuth";
 import {LoginPage} from "./AppForm/LoginPage";
 import {RegistrationPage} from "./AppForm/RegistrationPage";
 import {ForgotPasswordPage} from "./AppForm/ForgotPasswordPage";
+import {MainContent} from "./MainContent/mainContent";
 
 function App() {
     const dispatch = useAppDispatch()
     const initialized = useAppSelector(state => state.app.isInitialized)
-    const isLoggedIn = useAppSelector(state => state.login._id)
 
 
     useEffect(() => {
@@ -28,16 +26,16 @@ function App() {
 
 
     return (
-        isLoggedIn
-            ? <MainContent/>
-            : <div className={s.appBackground}>
+        <div className={s.appBackground}>
             <Routes>
-                <Route path={'/'} element={<Navigate to={'/profile'}/>}></Route>
-                <Route path={'/forgot'} element={<ForgotPasswordPage/>}></Route>
-                <Route path={'/register'} element={<RegistrationPage/>}></Route>
-                <Route path={'/login'} element={<LoginPage/>}></Route>
-                <Route path={'/profile'} element={<IsAuthHoc><MainContent/></IsAuthHoc>}></Route>
-                {/*<Route path={'*'} element={<Navigate to={<div></div>}/>}></Route>*/}
+                <Route path={'/'} element={<RequireAuth><MainContent/></RequireAuth>}>
+                    <Route index element={<Profile/>}></Route>
+                    <Route path={'cardPacks'} element={<div></div>}></Route>
+                    <Route path={'*'} element={<div>Page not found</div>}></Route>
+                    <Route path={'login'} element={<LoginPage/>}></Route>
+                    <Route path={'registration'} element={<RegistrationPage/>}></Route>
+                    <Route path={'password-recovery'} element={<ForgotPasswordPage/>}></Route>
+                </Route>
             </Routes>
         </div>
     );

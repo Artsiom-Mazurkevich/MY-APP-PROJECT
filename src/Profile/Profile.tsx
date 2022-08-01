@@ -8,12 +8,15 @@ import {setNewNameUser} from "../redux/profileReducer";
 import {logOut} from "../redux/loginReducer";
 
 export const Profile = React.memo((props) => {
+
     const email = useAppSelector(state => state.login.email)
-    const name = useAppSelector(state => state.profile.name)
+    const {name, avatar} = useAppSelector(state => state.profile)
     const dispatch = useAppDispatch()
+
     const [editMode, setEditMode] = React.useState<boolean>(false)
     const [nameUser, setNameUser] = useInputState(name);
     const [opened, setOpened] = React.useState(false);
+    const [urlAvatar, setUrlAvatar] = useInputState(avatar);
 
     const handleSetNewName = (e: any) => {
         dispatch(setNewNameUser(nameUser))
@@ -25,7 +28,10 @@ export const Profile = React.memo((props) => {
                opened={opened}
                transition="fade"
                onClose={() => setOpened(false)}>
-            <TextInput placeholder={'paste URL'} autoFocus/>
+            <TextInput placeholder={'paste URL'}
+                       autoFocus
+                       onChange={setUrlAvatar}
+                       value={urlAvatar}/>
         </Modal>
         <div className={s.mainProfileContainer}>
             <Paper radius={'md'} withBorder shadow={'sm'} p={'md'}

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Anchor, Button, Checkbox, Container, Group, Paper, PasswordInput, TextInput, Title, Text} from "@mantine/core";
 import s from '../App.module.css';
 import {useForm} from "@mantine/hooks";
 import {loginTC} from "../redux/loginReducer";
-import {useAppDispatch} from "../redux/store";
+import {useAppDispatch, useAppSelector} from "../redux/store";
 import {useNavigate} from "react-router-dom";
 
 type InitialValuesType = {
@@ -14,7 +14,7 @@ type InitialValuesType = {
 
 
 export const LoginPage = () => {
-
+    const isLoggedIn = useAppSelector(state => state.login._id)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -39,6 +39,12 @@ export const LoginPage = () => {
         dispatch(loginTC(values.email, values.password, values.rememberMe))
     }
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/')
+        }
+    }, [isLoggedIn])
+
 
     return (
         <div className={s.appBackground}>
@@ -51,7 +57,7 @@ export const LoginPage = () => {
                 </Title>
                 <Text color="dimmed" size="md" align="center" mt={5}>
                     Do not have an account yet?{' '}
-                    <Anchor<'a'> href="#" size="md" onClick={(event) => {event.preventDefault(); navigate('/register')}}>
+                    <Anchor<'a'> href="#" size="md" onClick={(event) => {event.preventDefault(); navigate('/registration')}}>
                         Create account
                     </Anchor>
                 </Text>
@@ -77,7 +83,7 @@ export const LoginPage = () => {
                                 {...form.getInputProps('rememberMe')}
                                 label="Remember me"
                             />
-                            <Anchor<'a'> onClick={(event) => {event.preventDefault(); navigate('/forgot')}} href="#" size="sm">
+                            <Anchor<'a'> onClick={(event) => {event.preventDefault(); navigate('/password-recovery')}} href="#" size="sm">
                                 Forgot password?
                             </Anchor>
                         </Group>
