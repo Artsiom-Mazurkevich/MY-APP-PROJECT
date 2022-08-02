@@ -10,6 +10,7 @@ import {LoginPage} from "./AppForm/LoginPage";
 import {RegistrationPage} from "./AppForm/RegistrationPage";
 import {ForgotPasswordPage} from "./AppForm/ForgotPasswordPage";
 import {MainContent} from "./MainContent/mainContent";
+import {CardPacks} from "./CardPacks/CardPacks";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -30,7 +31,7 @@ function App() {
             <Routes>
                 <Route path={'/'} element={<RequireAuth><MainContent/></RequireAuth>}>
                     <Route index element={<Profile/>}></Route>
-                    <Route path={'cardPacks'} element={<div></div>}></Route>
+                    <Route path={'cardPacks'} element={<CardPacks/>}></Route>
                     <Route path={'*'} element={<div>Page not found</div>}></Route>
                     <Route path={'login'} element={<LoginPage/>}></Route>
                     <Route path={'registration'} element={<RegistrationPage/>}></Route>

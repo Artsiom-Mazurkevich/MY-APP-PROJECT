@@ -2,14 +2,16 @@ import React from 'react';
 import s from './Profile.module.css'
 import {
     ActionIcon,
-    Avatar, Badge,
+    Avatar,
+    Badge,
     Button,
     Center,
     Group,
     Indicator,
-    Input, MANTINE_SIZES,
+    Input,
     Modal,
-    Paper, Stack,
+    Paper,
+    Stack,
     Text,
     TextInput
 } from "@mantine/core";
