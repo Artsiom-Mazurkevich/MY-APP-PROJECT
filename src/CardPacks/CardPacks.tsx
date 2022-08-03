@@ -19,7 +19,7 @@ export const CardPacks = () => {
 
     useEffect(() => {
         dispatch (getCards(packName, min, max, sortPacks, page, pageCount, user_id))
-    }, [packName, min, max, sortPacks, page, pageCount, user_id, cardPacksTotalCount])
+    }, [packName, min, max, sortPacks, page, pageCount, user_id, cardPacksTotalCount, dispatch])
 
 
     return (
@@ -31,7 +31,7 @@ export const CardPacks = () => {
                 </Group>
                 <Grid align={'end'} justify={'space-between'} grow gutter={'xl'} mb={30}>
                     <Grid.Col span={4}><Search packName={packName}/></Grid.Col>
-                    <Grid.Col span={3}><ControlMyAll user_id={user_id}/></Grid.Col>
+                    <Grid.Col span={3}><ControlMyAll/></Grid.Col>
                     <Grid.Col span={3}><RangeSliderCountCards min_max={[min,max]}/></Grid.Col>
                 </Grid>
                 <TablePacks elements={cardPacks}/>
