@@ -1,15 +1,21 @@
 import React from 'react';
 import {Select} from "@mantine/core";
+import {useAppDispatch} from "../redux/store";
+import {changePageCount} from "../redux/cardsPackReducer";
 
-const SelectCountCardsPerPage = () => {
-    const data = ['7','10','15', '20']
-    // const [data, setData] = React.useState([
-    //     { value: '1', label: '1' },
-    //     { value: '2', label: '2' },
-    // ]);
-    const [value, setValue] = React.useState('7');
+const SelectCountCardsPerPage: React.FC<{cardsCountOnPage: number}> = ({cardsCountOnPage}) => {
+
+    const dispatch = useAppDispatch()
+
+    const data = [
+        {value: '7', label: '7'},
+        {value: '10', label: '10'},
+        {value: '15', label: '15'},
+        {value: '20', label: '20'},
+    ]
+
     return (
-        <Select dropdownPosition="flip" value={value} onChange={() => setValue} data={data} label="Cards per Page"/>
+        <Select dropdownPosition="flip" defaultValue={'7'} onChange={(e: string ) => dispatch(changePageCount(+e))} data={data} label="Cards per Page"/>
     );
 };
 

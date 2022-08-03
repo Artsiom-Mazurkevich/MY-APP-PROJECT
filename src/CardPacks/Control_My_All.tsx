@@ -1,7 +1,7 @@
 import React from 'react';
 import {SegmentedControl} from "@mantine/core";
 
-const ControlMyAll = () => {
+const ControlMyAll:React.FC<{user_id: string}> = ({user_id}) => {
     const [value, setValue] = React.useState('all');
     return (
         <SegmentedControl

@@ -42,3 +42,10 @@ export const profileAPI = {
         return instance.put('/auth/me', {avatar})
     },
 }
+
+
+export const cardsAPI = {
+    getCards (packName: string, min: number, max: number, sortPacks: string, page: number, pageCount: number, user_id: string) {
+        return instance.get('/cards/pack', {params: {packName, min,max, sortPacks,page,pageCount,user_id}})
+    }
+}
