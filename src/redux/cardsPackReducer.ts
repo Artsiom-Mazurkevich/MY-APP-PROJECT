@@ -37,6 +37,7 @@ export type ActionTypePackReducer = ReturnType<typeof setCards>
     | ReturnType<typeof changePageCount>
     | ReturnType<typeof changeCurrentPage>
     | ReturnType<typeof selectMyCards>
+    | ReturnType<typeof searchPackName>
 
 
 export const cardsPackReducer = (state: initialStateType = initialState, action: ActionTypePackReducer):initialStateType => {
@@ -47,9 +48,10 @@ export const cardsPackReducer = (state: initialStateType = initialState, action:
             return {...state, pageCount: action.pageCount}
         case "CHANGE-CURRENT-PAGE":
             return {...state, page: action.page}
-        debugger
         case "SELECT-MY-CARDS":
             return {...state, user_id: action.id}
+        case "SEARCH-PACK":
+            return {...state, packName: action.value}
         default: return state
     }
 }
@@ -58,6 +60,7 @@ const setCards = (newCards: initialStateType) => ({type: 'SET-CARDS', newCards} 
 export const changePageCount = (pageCount: number) => ({type: 'CHANGE-PAGE-COUNT', pageCount} as const)
 export const changeCurrentPage = (page: number) => ({type: 'CHANGE-CURRENT-PAGE', page} as const)
 export const selectMyCards = (id: string) => ({type: 'SELECT-MY-CARDS', id} as const)
+export const searchPackName = (value: string) => ({type: 'SEARCH-PACK', value} as const)
 
 
 export const getCards = (packName: string, min: number, max: number, sortPacks: string, page: number, pageCount: number, user_id: string):ThunkType => dispatch => {

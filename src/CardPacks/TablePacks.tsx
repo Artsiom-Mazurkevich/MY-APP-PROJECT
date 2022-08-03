@@ -1,24 +1,29 @@
 import React from 'react';
 import {ActionIcon, Group, Table} from "@mantine/core";
 import {IconPencil, IconSchool, IconTrash} from "@tabler/icons";
+import {useAppSelector} from "../redux/store";
 
 const TablePacks: React.FC<{ elements: any }> = ({elements}) => {
+
+
+    const user_id = useAppSelector(state => state.login._id)
+
 
     const rows = elements.map((element: any) => (
         <tr key={element._id}>
             <td>{element.name}</td>
             <td>{element.cardsCount}</td>
-            <td>{element.updated}</td>
+            <td>{new Date(element.updated).toLocaleDateString()}</td>
             <td>{element.user_name}</td>
             <td>
                 <Group align={'center'}>
-                    <ActionIcon color="red">
+                    {user_id === element._id && <ActionIcon color="red">
                         <IconTrash/>
-                    </ActionIcon>
-                    <ActionIcon>
+                    </ActionIcon>}
+                    {user_id === element._id && <ActionIcon color={'orange'}>
                         <IconPencil/>
-                    </ActionIcon>
-                    <ActionIcon>
+                    </ActionIcon>}
+                    <ActionIcon color={'green'}>
                         <IconSchool/>
                     </ActionIcon>
                 </Group>

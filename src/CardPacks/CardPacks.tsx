@@ -30,7 +30,7 @@ export const CardPacks = () => {
                     <Button radius={'xl'}>Add new pack</Button>
                 </Group>
                 <Grid align={'end'} justify={'space-between'} grow gutter={'xl'} mb={30}>
-                    <Grid.Col span={4}><Search packName={packName}/></Grid.Col>
+                    <Grid.Col span={4}><Search/></Grid.Col>
                     <Grid.Col span={3}><ControlMyAll/></Grid.Col>
                     <Grid.Col span={3}><RangeSliderCountCards min_max={[min,max]}/></Grid.Col>
                 </Grid>
