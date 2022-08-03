@@ -14,8 +14,12 @@ const SelectCountCardsPerPage: React.FC<{cardsCountOnPage: number}> = ({cardsCou
         {value: '20', label: '20'},
     ]
 
+    const onChangeHandler = (e: string) => {
+        dispatch(changePageCount(+e))
+    }
+
     return (
-        <Select dropdownPosition="flip" defaultValue={'7'} onChange={(e: string ) => dispatch(changePageCount(+e))} data={data} label="Cards per Page"/>
+        <Select dropdownPosition="flip" defaultValue={'7'} onChange={(e: string ) => onChangeHandler(e)} data={data} label="Cards per Page"/>
     );
 };
 
