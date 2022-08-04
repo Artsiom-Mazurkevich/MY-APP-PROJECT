@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActionIcon, Group, Table} from "@mantine/core";
+import {ActionIcon, Group, LoadingOverlay, Table} from "@mantine/core";
 import {IconPencil, IconSchool, IconTrash} from "@tabler/icons";
 import {useAppSelector} from "../redux/store";
 
@@ -7,6 +7,7 @@ const TablePacks: React.FC<{ elements: any }> = ({elements}) => {
 
 
     const user_id = useAppSelector(state => state.login._id)
+    const loading = useAppSelector(state => state.cardsPack.isFetching)
 
 
     const rows = elements.map((element: any) => (
@@ -33,8 +34,9 @@ const TablePacks: React.FC<{ elements: any }> = ({elements}) => {
 
 
     return (
-        <div>
+        <div style={{position: 'relative'}}>
             <Table highlightOnHover verticalSpacing={'md'}>
+                <LoadingOverlay visible={loading}/>
                 <thead>
                 <tr>
                     <th>Name</th>

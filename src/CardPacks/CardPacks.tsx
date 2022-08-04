@@ -11,14 +11,22 @@ import {getCards} from "../redux/cardsPackReducer";
 
 export const CardPacks = () => {
     const dispatch = useAppDispatch()
-    const {packName, min, max, sortPacks, page, pageCount, user_id, cardPacksTotalCount, cardPacks} = useAppSelector(state => state.cardsPack)
+    const {
+        packName,
+        min,
+        max,
+        sortPacks,
+        page,
+        pageCount,
+        user_id,
+        cardPacksTotalCount,
+        cardPacks
+    } = useAppSelector(state => state.cardsPack)
     let countPages = (cardPacksTotalCount / pageCount).toFixed()
 
 
-
-
     useEffect(() => {
-        dispatch (getCards(packName, min, max, sortPacks, page, pageCount, user_id))
+        dispatch(getCards(packName, min, max, sortPacks, page, pageCount, user_id))
     }, [packName, min, max, sortPacks, page, pageCount, user_id, cardPacksTotalCount, dispatch])
 
 
@@ -32,7 +40,7 @@ export const CardPacks = () => {
                 <Grid align={'end'} justify={'space-between'} grow gutter={'xl'} mb={30}>
                     <Grid.Col span={4}><Search/></Grid.Col>
                     <Grid.Col span={3}><ControlMyAll/></Grid.Col>
-                    <Grid.Col span={3}><RangeSliderCountCards min_max={[min,max]}/></Grid.Col>
+                    <Grid.Col span={3}><RangeSliderCountCards/></Grid.Col>
                 </Grid>
                 <TablePacks elements={cardPacks}/>
                 <Divider/>

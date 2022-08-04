@@ -29,11 +29,13 @@ export function MainContent() {
 
     return (
         <>
-            {isLoggedIn && <Header height={'7vh'} style={{backgroundColor: '#0166ea'}}>
-                <Container className={s.containerLinks}>
-                    {links}
-                </Container>
-            </Header>}
+            {isLoggedIn &&
+                    <Header height={'7vh'} style={{backgroundColor: '#0166ea'}}>
+                    <Container className={s.containerLinks}>
+                        {links}
+                    </Container>
+                </Header>
+            }
             <Outlet/>
         </>
     );

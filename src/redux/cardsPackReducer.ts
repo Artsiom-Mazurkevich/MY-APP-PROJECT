@@ -24,13 +24,14 @@ const initialState = {
         }
     ],
     cardPacksTotalCount: 10,
-    packName:'',
-    min:0,
+    packName: '',
+    min: 0,
     max: 110,
     sortPacks: '0updated',
     page: 1,
     pageCount: 7,
     user_id: '',
+    isFetching: false
 }
 type initialStateType = typeof initialState
 export type ActionTypePackReducer = ReturnType<typeof setCards>
@@ -38,12 +39,18 @@ export type ActionTypePackReducer = ReturnType<typeof setCards>
     | ReturnType<typeof changeCurrentPage>
     | ReturnType<typeof selectMyCards>
     | ReturnType<typeof searchPackName>
+    | ReturnType<typeof change_Min_Max_Cards>
+    | ReturnType<typeof setIsFetchingCards>
 
 
-export const cardsPackReducer = (state: initialStateType = initialState, action: ActionTypePackReducer):initialStateType => {
+export const cardsPackReducer = (state: initialStateType = initialState, action: ActionTypePackReducer): initialStateType => {
     switch (action.type) {
         case "SET-CARDS":
-            return {...state, cardPacks: action.newCards.cardPacks, cardPacksTotalCount: action.newCards.cardPacksTotalCount}
+            return {
+                ...state,
+                cardPacks: action.newCards.cardPacks,
+                cardPacksTotalCount: action.newCards.cardPacksTotalCount
+            }
         case "CHANGE-PAGE-COUNT":
             return {...state, pageCount: action.pageCount}
         case "CHANGE-CURRENT-PAGE":
@@ -52,7 +59,12 @@ export const cardsPackReducer = (state: initialStateType = initialState, action:
             return {...state, user_id: action.id}
         case "SEARCH-PACK":
             return {...state, packName: action.value}
-        default: return state
+        case "CHANGE-MIN-MAX-CARDS":
+            return {...state, min: action.min_max[0], max: action.min_max[1]}
+        case "IS-FETCHING-CARDS":
+            return {...state, isFetching: action.isFetching}
+        default:
+            return state
     }
 }
 
@@ -61,14 +73,19 @@ export const changePageCount = (pageCount: number) => ({type: 'CHANGE-PAGE-COUNT
 export const changeCurrentPage = (page: number) => ({type: 'CHANGE-CURRENT-PAGE', page} as const)
 export const selectMyCards = (id: string) => ({type: 'SELECT-MY-CARDS', id} as const)
 export const searchPackName = (value: string) => ({type: 'SEARCH-PACK', value} as const)
+export const change_Min_Max_Cards = (min_max: number[]) => ({type: 'CHANGE-MIN-MAX-CARDS', min_max} as const)
+export const setIsFetchingCards = (isFetching: boolean) => ({type: 'IS-FETCHING-CARDS', isFetching} as const)
 
 
-export const getCards = (packName: string, min: number, max: number, sortPacks: string, page: number, pageCount: number, user_id: string):ThunkType => dispatch => {
-    cardsAPI.getCards(packName, min ,max, sortPacks, page, pageCount, user_id)
+export const getCards = (packName: string, min: number, max: number, sortPacks: string, page: number, pageCount: number, user_id: string): ThunkType => dispatch => {
+    dispatch(setIsFetchingCards(true))
+    cardsAPI.getCards(packName, min, max, sortPacks, page, pageCount, user_id)
         .then(res => {
             dispatch(setCards(res.data))
+            dispatch(setIsFetchingCards(false))
         })
         .catch(e => {
             showStatusMessage(e.response.data.error)
         })
+        .finally(() => dispatch(setIsFetchingCards(false)))
 }
