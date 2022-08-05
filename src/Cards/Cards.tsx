@@ -6,19 +6,21 @@ import {TableCards} from "./TableCards";
 import {SelectCountCardsPerPage} from "../CardPacks/SelectCountCardsPerPage";
 import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../redux/store";
-import {getUserCards} from "../redux/cardsReducer";
+import {changePage, getUserCards} from "../redux/cardsReducer";
 
 const Cards = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const {id} = useParams()
-    const {pageCount} = useAppSelector(state => state.cardsUser.params)
+    const {pageCount, page} = useAppSelector(state => state.cardsUser.params)
+    const totalCards = useAppSelector(state => state.cardsUser.cardsTotalCount)
+    const countPages =  +(totalCards / pageCount).toFixed()
 
 
     useEffect(() => {
-        dispatch(getUserCards(id!, pageCount))
-    }, [])
+        dispatch(getUserCards(id!, pageCount, page))
+    }, [id, pageCount, page])
 
     return (
         <Container mt={30} size={'xl'} pb={30}>
@@ -35,7 +37,8 @@ const Cards = () => {
                 <Title order={2} mt={20} mb={20}>Name Pack</Title>
             <Search/>
             <Paper><TableCards/></Paper>
-            <Group align={'end'} position={'apart'}><Pagination total={500}/>
+            <Group align={'end'} position={'apart'}>
+                <Pagination total={countPages} onChange={(e) => dispatch(changePage(e))}/>
                 <SelectCountCardsPerPage/></Group>
         </Container>
     );

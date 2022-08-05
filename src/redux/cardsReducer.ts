@@ -39,6 +39,7 @@ const initialState = {
 
 type initialStateType = typeof initialState
 export type ActionTypeCardsReducer = ReturnType<typeof setCards>
+    | ReturnType<typeof changePage>
 
 
 
@@ -46,17 +47,20 @@ export const cardsReducer = (state: initialStateType = initialState, action: Act
     switch (action.type) {
         case "SET-USER-CARDS":
             return {...state, cards: action.newStateCards.cards, cardsTotalCount: action.newStateCards.cardsTotalCount}
+        case "CHANGE-PAGE":
+            return {...state, params: {...state.params, page: action.page}}
         default:
             return state
     }
 }
 
 const setCards = (newStateCards: initialStateType) => ({type: 'SET-USER-CARDS', newStateCards}as const)
+export const changePage = (page: number) => ({type: 'CHANGE-PAGE', page}as const)
 
 
 
-export const getUserCards = (userId: string, countCardsOnPage: number):ThunkType => dispatch => {
-    cardsAPI.getCards(userId, countCardsOnPage)
+export const getUserCards = (userId: string, countCardsOnPage: number, page: number):ThunkType => dispatch => {
+    cardsAPI.getCards(userId, countCardsOnPage, page)
         .then(res => {
             dispatch(setCards(res.data))
         })
