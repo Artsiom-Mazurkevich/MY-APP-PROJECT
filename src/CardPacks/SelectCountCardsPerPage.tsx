@@ -3,7 +3,7 @@ import {Select} from "@mantine/core";
 import {useAppDispatch} from "../redux/store";
 import {changePageCount} from "../redux/cardsPackReducer";
 
-const SelectCountCardsPerPage: React.FC<{cardsCountOnPage: number}> = ({cardsCountOnPage}) => {
+const SelectCountCardsPerPage = () => {
 
     const dispatch = useAppDispatch()
 

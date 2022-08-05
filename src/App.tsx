@@ -11,6 +11,7 @@ import {RegistrationPage} from "./AppForm/RegistrationPage";
 import {ForgotPasswordPage} from "./AppForm/ForgotPasswordPage";
 import {MainContent} from "./MainContent/mainContent";
 import {CardPacks} from "./CardPacks/CardPacks";
+import {Cards} from "./Cards/Cards";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -36,6 +37,7 @@ function App() {
                     <Route path={'login'} element={<LoginPage/>}></Route>
                     <Route path={'registration'} element={<RegistrationPage/>}></Route>
                     <Route path={'password-recovery'} element={<ForgotPasswordPage/>}></Route>
+                    <Route path={'cardPacks/:id'} element={<Cards/>}></Route>
                 </Route>
             </Routes>
         </div>

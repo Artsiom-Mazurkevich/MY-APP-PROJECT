@@ -47,7 +47,7 @@ export const CardPacks = () => {
 
                 <Group mt={20} align={'end'} position={'apart'}>
                     <PaginationPage countPages={countPages} currentPage={page}/>
-                    <SelectCountCardsPerPage cardsCountOnPage={pageCount}/>
+                    <SelectCountCardsPerPage/>
                 </Group>
             </Paper>
         </Container>

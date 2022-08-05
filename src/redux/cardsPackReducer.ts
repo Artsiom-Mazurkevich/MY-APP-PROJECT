@@ -79,7 +79,7 @@ export const setIsFetchingCards = (isFetching: boolean) => ({type: 'IS-FETCHING-
 
 export const getCards = (packName: string, min: number, max: number, sortPacks: string, page: number, pageCount: number, user_id: string): ThunkType => dispatch => {
     dispatch(setIsFetchingCards(true))
-    cardsAPI.getCards(packName, min, max, sortPacks, page, pageCount, user_id)
+    cardsAPI.getCardPacks(packName, min, max, sortPacks, page, pageCount, user_id)
         .then(res => {
             dispatch(setCards(res.data))
             dispatch(setIsFetchingCards(false))

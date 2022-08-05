@@ -6,6 +6,7 @@ import {ActionTypeRegisterReducer, registerReducer} from "./registerReducer";
 import {ActionTypeLoginReducer, loginReducer} from "./loginReducer";
 import {profileReducer} from "./profileReducer";
 import {ActionTypePackReducer, cardsPackReducer} from "./cardsPackReducer";
+import {ActionTypeCardsReducer, cardsReducer} from "./cardsReducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     login: loginReducer,
     profile: profileReducer,
     cardsPack: cardsPackReducer,
+    cardsUser: cardsReducer,
 })
 
 
@@ -27,7 +29,8 @@ export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateT
 export type AppRootActionsType = ActionTypeRegisterReducer
     | ActionTypeLoginReducer
     | ActionTypeAppReducer
-    | ActionTypePackReducer;
+    | ActionTypePackReducer
+    | ActionTypeCardsReducer;
 
 // @ts-ignore
 window.store = store;
