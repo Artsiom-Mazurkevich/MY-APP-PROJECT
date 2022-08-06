@@ -23,7 +23,7 @@ function App() {
     }, [dispatch]);
 
     if (!initialized) {
-        return <Loader variant={'bars'} size={'xl'} style={{position: 'absolute', top: '50%', left: '50%'}}/>
+        return <Loader variant={'bars'} size={'xl'} style={{position: 'absolute', top: '47%', left: '48%'}}/>
     }
 
 

@@ -1,5 +1,7 @@
 import {ThunkType} from "./store";
 import {cardsAPI} from "../API/API";
+import {showStatusMessage} from "../Loader&Notifications/Notification";
+import {startNavigationProgress, stopNavigationProgress} from "@mantine/nprogress";
 
 
 const initialState = {
@@ -63,5 +65,8 @@ export const getUserCards = (userId: string, countCardsOnPage: number, page: num
     cardsAPI.getCards(userId, countCardsOnPage, page)
         .then(res => {
             dispatch(setCards(res.data))
+        })
+        .catch(e => {
+            showStatusMessage(e.response.data.error)
         })
 }

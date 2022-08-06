@@ -7,9 +7,10 @@ import {useAppSelector} from "../redux/store";
 
 
 const data = [
-    {link: '/', label: 'Profile', icon: IconUser},
-    {link: '/cardPacks', label: 'Packs List', icon: IconDatabase},
+    {link: '/', label: 'Profile', icon: IconUser, value: 'profile'},
+    {link: '/cardPacks', label: 'Packs List', icon: IconDatabase, value: 'packsList'},
 ];
+
 
 export function MainContent() {
 
@@ -27,14 +28,15 @@ export function MainContent() {
         </NavLink>
     ));
 
+
     return (
         <>
             {isLoggedIn &&
-                    <Header height={'7vh'} style={{backgroundColor: '#0166ea'}}>
-                    <Container className={s.containerLinks}>
-                        {links}
-                    </Container>
-                </Header>
+                        <Header height={'6vh'} >
+                            <Container size={'xl'} className={s.containerLinks}>
+                                <div className={s.divLinks}>{links}</div>
+                            </Container>
+                        </Header>
             }
             <Outlet/>
         </>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Select} from "@mantine/core";
 import {useAppDispatch} from "../redux/store";
-import {changePageCount} from "../redux/cardsPackReducer";
+import {changeCurrentPage, changePageCount} from "../redux/cardsPackReducer";
 
 const SelectCountCardsPerPage = () => {
 
@@ -15,6 +15,7 @@ const SelectCountCardsPerPage = () => {
     ]
 
     const onChangeHandler = (e: string) => {
+        dispatch(changeCurrentPage(1))
         dispatch(changePageCount(+e))
     }
 

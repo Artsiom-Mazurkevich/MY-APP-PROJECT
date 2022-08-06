@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {RangeSlider} from "@mantine/core";
 import {useAppDispatch} from "../redux/store";
 import {useDebouncedValue} from "@mantine/hooks";
-import {change_Min_Max_Cards} from "../redux/cardsPackReducer";
+import {change_Min_Max_Cards, changeCurrentPage} from "../redux/cardsPackReducer";
 
 const RangeSliderCountCards = () => {
 
