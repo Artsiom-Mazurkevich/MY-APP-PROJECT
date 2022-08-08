@@ -39,7 +39,8 @@ const Cards = () => {
             <Paper><TableCards/></Paper>
             <Group align={'end'} position={'apart'}>
                 <Pagination total={countPages} onChange={(e) => dispatch(changePage(e))}/>
-                <SelectCountCardsPerPage/></Group>
+                <SelectCountCardsPerPage/>
+            </Group>
         </Container>
     );
 };

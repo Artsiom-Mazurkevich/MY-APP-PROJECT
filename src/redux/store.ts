@@ -7,6 +7,7 @@ import {ActionTypeLoginReducer, loginReducer} from "./loginReducer";
 import {profileReducer} from "./profileReducer";
 import {ActionTypePackReducer, cardsPackReducer} from "./cardsPackReducer";
 import {ActionTypeCardsReducer, cardsReducer} from "./cardsReducer";
+import {ActionTypeModalReducer, modalReducer} from "./modalReducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     cardsPack: cardsPackReducer,
     cardsUser: cardsReducer,
+    modal: modalReducer,
 })
 
 
@@ -30,7 +32,8 @@ export type AppRootActionsType = ActionTypeRegisterReducer
     | ActionTypeLoginReducer
     | ActionTypeAppReducer
     | ActionTypePackReducer
-    | ActionTypeCardsReducer;
+    | ActionTypeCardsReducer
+    | ActionTypeModalReducer;
 
 // @ts-ignore
 window.store = store;

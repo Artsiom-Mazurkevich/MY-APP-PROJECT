@@ -45,10 +45,13 @@ export const profileAPI = {
 
 
 export const cardsAPI = {
-    getCardPacks (packName: string, min: number, max: number, sortPacks: string, page: number, pageCount: number, user_id: string) {
+    getPacks (packName: string, min: number, max: number, sortPacks: string, page: number, pageCount: number, user_id: string) {
         return instance.get('/cards/pack', {params: {packName, min,max, sortPacks,page,pageCount,user_id}})
     },
     getCards (cardsPack_id: string, pageCount: number, page: number) {
         return instance.get('cards/card', {params: {cardsPack_id, pageCount, page}})
-    }
+    },
+    createPack (name: string, isPrivate: boolean) {
+        return instance.post('cards/pack', {cardsPack: {name, private: isPrivate}})
+    },
 }

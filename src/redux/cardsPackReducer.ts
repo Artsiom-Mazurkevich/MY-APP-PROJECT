@@ -1,6 +1,7 @@
 import {ThunkType} from "./store";
 import {cardsAPI} from "../API/API";
 import {showStatusMessage} from "../Loader&Notifications/Notification";
+import {setOpened} from "./modalReducer";
 
 
 const initialState = {
@@ -31,7 +32,8 @@ const initialState = {
     page: 1,
     pageCount: 7,
     user_id: '',
-    isFetching: false
+    isFetching: false,
+    creatingPack: false,
 }
 type initialStateType = typeof initialState
 export type ActionTypePackReducer = ReturnType<typeof setCards>
@@ -41,6 +43,7 @@ export type ActionTypePackReducer = ReturnType<typeof setCards>
     | ReturnType<typeof searchPackName>
     | ReturnType<typeof change_Min_Max_Cards>
     | ReturnType<typeof setIsFetchingCards>
+    | ReturnType<typeof setIsCreatingPack>
 
 
 export const cardsPackReducer = (state: initialStateType = initialState, action: ActionTypePackReducer): initialStateType => {
@@ -63,6 +66,8 @@ export const cardsPackReducer = (state: initialStateType = initialState, action:
             return {...state, min: action.min_max[0], max: action.min_max[1]}
         case "IS-FETCHING-CARDS":
             return {...state, isFetching: action.isFetching}
+        case "IS-CREATING-PACK":
+            return {...state, creatingPack: action.isCreating}
         default:
             return state
     }
@@ -75,11 +80,12 @@ export const selectMyCards = (id: string) => ({type: 'SELECT-MY-CARDS', id} as c
 export const searchPackName = (value: string) => ({type: 'SEARCH-PACK', value} as const)
 export const change_Min_Max_Cards = (min_max: number[]) => ({type: 'CHANGE-MIN-MAX-CARDS', min_max} as const)
 export const setIsFetchingCards = (isFetching: boolean) => ({type: 'IS-FETCHING-CARDS', isFetching} as const)
+const setIsCreatingPack = (isCreating: boolean) => ({type: 'IS-CREATING-PACK', isCreating} as const)
 
 
 export const getCards = (packName: string, min: number, max: number, sortPacks: string, page: number, pageCount: number, user_id: string): ThunkType => dispatch => {
     dispatch(setIsFetchingCards(true))
-    cardsAPI.getCardPacks(packName, min, max, sortPacks, page, pageCount, user_id)
+    cardsAPI.getPacks(packName, min, max, sortPacks, page, pageCount, user_id)
         .then(res => {
             dispatch(setCards(res.data))
             dispatch(setIsFetchingCards(false))
@@ -88,4 +94,18 @@ export const getCards = (packName: string, min: number, max: number, sortPacks: 
             showStatusMessage(e.response.data.error)
         })
         .finally(() => dispatch(setIsFetchingCards(false)))
+}
+
+export const createPackThunk = (name: string, isPrivate: boolean): ThunkType => dispatch => {
+    dispatch(setIsCreatingPack(true))
+    cardsAPI.createPack(name, isPrivate)
+        .then(res => {
+            dispatch(setOpened(false))
+            dispatch(setIsCreatingPack(false))
+            showStatusMessage('Pack added successful', 'green')
+            console.log(res)
+        })
+        .catch(e => {
+            showStatusMessage(e.response.data.error)
+        })
 }

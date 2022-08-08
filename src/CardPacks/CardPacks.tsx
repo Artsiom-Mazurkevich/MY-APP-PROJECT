@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Button, Container, Divider, Grid, Group, Paper, Text} from "@mantine/core";
+import {Container, Divider, Grid, Group, Paper, Text} from "@mantine/core";
 import {Search} from "./Search";
 import {ControlMyAll} from "./Control_My_All";
 import {RangeSliderCountCards} from "./RangeSliderCountCards";
@@ -8,6 +8,8 @@ import {PaginationPage} from "./PaginationPage";
 import {SelectCountCardsPerPage} from "./SelectCountCardsPerPage";
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {getCards} from "../redux/cardsPackReducer";
+import {ModalWindow} from "../ModalWindow/ModalWindow";
+import {ModalContentCreatingPack} from "./ModalContentCreatingPack";
 
 export const CardPacks = () => {
     const dispatch = useAppDispatch()
@@ -35,7 +37,9 @@ export const CardPacks = () => {
             <Paper radius={'md'} withBorder shadow={'sm'} p={'xl'}>
                 <Group position={'apart'} mb={30}>
                     <Text align={'left'} weight={500} size={'xl'}>Packs List</Text>
-                    <Button radius={'xl'}>Add new pack</Button>
+                    <ModalWindow titleBtn={'Add new pack'} titleWindow={'Add new Pack'}>
+                        <ModalContentCreatingPack/>
+                    </ModalWindow>
                 </Group>
                 <Grid align={'end'} justify={'space-between'} grow gutter={'xl'} mb={30}>
                     <Grid.Col span={4}><Search/></Grid.Col>
