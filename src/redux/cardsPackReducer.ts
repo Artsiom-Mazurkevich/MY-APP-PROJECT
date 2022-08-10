@@ -102,10 +102,11 @@ export const createPackThunk = (name: string, isPrivate: boolean): ThunkType => 
         .then(res => {
             dispatch(setOpened(false))
             dispatch(setIsCreatingPack(false))
-            showStatusMessage('Pack added successful', 'green')
+            showStatusMessage('Pack added successful 😃', 'green')
             console.log(res)
         })
         .catch(e => {
             showStatusMessage(e.response.data.error)
+            dispatch(setIsCreatingPack(false))
         })
 }

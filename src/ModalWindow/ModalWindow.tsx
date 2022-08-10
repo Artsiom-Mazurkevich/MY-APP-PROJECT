@@ -1,5 +1,5 @@
 import React, {ReactNode, useEffect} from 'react';
-import {Button, ButtonVariant, Divider, MantineNumberSize, Modal, TextInput} from "@mantine/core";
+import {Button, ButtonVariant, Divider, LoadingOverlay, MantineNumberSize, Modal, TextInput} from "@mantine/core";
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {setOpened} from "../redux/modalReducer";
 
@@ -23,10 +23,8 @@ export const ModalWindow = (
     }: ModalWindowProps) => {
 
     const opened = useAppSelector(state => state.modal.isOpenCreatingPack)
+    const visible = useAppSelector(state => state.cardsPack.creatingPack)
     const dispatch = useAppDispatch()
-    // const [opened, setOpened] = React.useState(false);
-
-
 
 
 
@@ -40,8 +38,8 @@ export const ModalWindow = (
                    overlayBlur={3}
                    transition="fade"
                    onClose={() => dispatch(setOpened(false))}
-                   // onClose={() => setOpened(false)}
             >
+                <LoadingOverlay visible={visible}/>
                 <Divider mb={30}/>
                 {children}
             </Modal>

@@ -3,6 +3,7 @@ import {ActionIcon, Group, LoadingOverlay, Table} from "@mantine/core";
 import {IconPencil, IconSchool, IconTrash} from "@tabler/icons";
 import {useAppSelector} from "../redux/store";
 import {useNavigate} from "react-router-dom";
+import {ModalWindowDeletingPack} from "./ModalWindowDeletingPack";
 
 const TablePacks: React.FC<{ elements: any }> = ({elements}) => {
 
@@ -10,20 +11,23 @@ const TablePacks: React.FC<{ elements: any }> = ({elements}) => {
 
     const user_id = useAppSelector(state => state.login._id)
     const loading = useAppSelector(state => state.cardsPack.isFetching)
+    console.log(user_id)
 
 
     const rows = elements.map((element: any) => (
-                <tr key={element._id} onClick={() => {navigate(`${element._id}`)}}>
-                    <td>{element.name}</td>
+                <tr key={element._id} onClick={() => {}}>
+                    <td onClick={() => {navigate(`${element._id}`)}}>{element.name}</td>
                     <td>{element.cardsCount}</td>
                     <td>{new Date(element.updated).toLocaleDateString()}</td>
                     <td>{element.user_name}</td>
                     <td>
                         <Group align={'center'}>
-                            {user_id === element._id && <ActionIcon color="red">
-                                <IconTrash/>
-                            </ActionIcon>}
-                            {user_id === element._id && <ActionIcon color={'orange'}>
+                            {user_id === element.user_id && <ModalWindowDeletingPack packName={element.name} />
+                            //     <ActionIcon color="red">
+                            //     <IconTrash/>
+                            // </ActionIcon>
+                            }
+                            {user_id === element.user_id && <ActionIcon color={'orange'}>
                                 <IconPencil/>
                             </ActionIcon>}
                             <ActionIcon color={'green'}>

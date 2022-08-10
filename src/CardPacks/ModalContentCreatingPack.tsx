@@ -4,7 +4,6 @@ import {IconCheck} from "@tabler/icons";
 import {useForm} from "@mantine/hooks";
 import {createPackThunk} from "../redux/cardsPackReducer";
 import {useAppDispatch} from "../redux/store";
-import {cardsAPI} from "../API/API";
 
 const ModalContentCreatingPack = () => {
 
