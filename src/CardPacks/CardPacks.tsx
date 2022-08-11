@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Container, Divider, Grid, Group, Paper, Text} from "@mantine/core";
+import {Button, Container, Divider, Grid, Group, Paper, Text} from "@mantine/core";
 import {Search} from "./Search";
 import {ControlMyAll} from "./Control_My_All";
 import {RangeSliderCountCards} from "./RangeSliderCountCards";
@@ -9,7 +9,8 @@ import {SelectCountCardsPerPage} from "./SelectCountCardsPerPage";
 import {useAppDispatch, useAppSelector} from "../redux/store";
 import {getCards} from "../redux/cardsPackReducer";
 import {ModalWindow} from "../ModalWindow/ModalWindow";
-import {ModalContentCreatingPack} from "./ModalContentCreatingPack";
+import {ContentModalCreatingPack} from "../ModalWindow/ContentModalCreatingPack";
+import {setCreatingPack} from "../redux/modalReducer";
 
 export const CardPacks = () => {
     const dispatch = useAppDispatch()
@@ -37,9 +38,14 @@ export const CardPacks = () => {
             <Paper radius={'md'} withBorder shadow={'sm'} p={'xl'}>
                 <Group position={'apart'} mb={30}>
                     <Text align={'left'} weight={500} size={'xl'}>Packs List</Text>
-                    <ModalWindow titleBtn={'Add new pack'} titleWindow={'Add new Pack'}>
-                        <ModalContentCreatingPack/>
-                    </ModalWindow>
+                    <ModalWindow
+                        titleWindow={'Creating Pack'}
+                        content={<ContentModalCreatingPack/>}
+                        onCloseWindow={() => dispatch(setCreatingPack(false))}
+                        controlBtn={<Button radius={'xl'} onClick={() => dispatch(setCreatingPack(true))}>Create Pack</Button>}
+                        openedWindow={useAppSelector(state => state.modal.isOpenCreatingPack)}
+                        visibleLoadingOverlay={useAppSelector(state => state.cardsPack.creatingPack)}
+                    />
                 </Group>
                 <Grid align={'end'} justify={'space-between'} grow gutter={'xl'} mb={30}>
                     <Grid.Col span={4}><Search/></Grid.Col>

@@ -4,22 +4,37 @@
 
 const initialState = {
     isOpenCreatingPack: false,
-    isOpenDeletingPack: false
+    isOpenDeletingPack: false,
+    isOpenEditablePack: false,
+    isCreatingPack: false,
+    isDeletingPack: false,
+    isEditedPack: false
 }
 
 type InitailStateType = typeof initialState
 
-export type ActionTypeModalReducer = ReturnType<typeof setOpened> | ReturnType<typeof setDeletingPack>
+export type ActionTypeModalReducer = ReturnType<typeof setCreatingPack>
+    | ReturnType<typeof setDeletingPack>
+    | ReturnType<typeof setEditablePack>
+    | ReturnType<typeof isCreatingPack>
+    | ReturnType<typeof isDeletingPack>
+    | ReturnType<typeof isEditedPack>
 
 export const modalReducer = (state: InitailStateType = initialState, action: ActionTypeModalReducer): InitailStateType => {
     switch (action.type) {
-        case "SET-IS-OPEN":
-            return {...state, isOpenCreatingPack: action.isOpen}
-        case "SET-IS-DELETING-PACK":
-            return {...state, isOpenDeletingPack: action.deleting}
+        case "SET-IS-CREATE":
+            return {...state, isOpenCreatingPack: action.create}
+        case "SET-IS-DELETE-PACK":
+            return {...state, isOpenDeletingPack: action.del}
+        case "SET-IS-EDIT-PACK":
+            return {...state, isOpenEditablePack: action.edit}
         default: return state
     }
 }
 
-export const setOpened = (isOpen: boolean) => ({type: 'SET-IS-OPEN', isOpen} as const)
-export const setDeletingPack = (deleting: boolean) => ({type: 'SET-IS-DELETING-PACK', deleting} as const)
+export const setCreatingPack = (create: boolean) => ({type: 'SET-IS-CREATE', create} as const)
+export const setDeletingPack = (del: boolean) => ({type: 'SET-IS-DELETE-PACK', del} as const)
+export const setEditablePack = (edit: boolean) => ({type: 'SET-IS-EDIT-PACK', edit} as const)
+export const isCreatingPack = (creating: boolean) => ({type: 'CREATING-PACK', creating} as const)
+export const isDeletingPack = (deleting: boolean) => ({type: 'DELETING-PACK', deleting} as const)
+export const isEditedPack = (edited: boolean) => ({type: 'EDITED-PACK', edited} as const)

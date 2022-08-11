@@ -1,50 +1,59 @@
 import React, {ReactNode, useEffect} from 'react';
-import {Button, ButtonVariant, Divider, LoadingOverlay, MantineNumberSize, Modal, TextInput} from "@mantine/core";
+import {
+    Button,
+    ButtonVariant,
+    Divider,
+    LoadingOverlay,
+    MantineNumberSize,
+    Modal,
+    TextInput,
+    useMantineTheme
+} from "@mantine/core";
 import {useAppDispatch, useAppSelector} from "../redux/store";
-import {setOpened} from "../redux/modalReducer";
+import {setCreatingPack} from "../redux/modalReducer";
 
 
 interface ModalWindowProps {
-    children: ReactNode
+    content: ReactNode
     titleWindow: string
-    titleBtn: string
-    variantBtn?: ButtonVariant
-    radiusBtn?: MantineNumberSize
+    controlBtn: ReactNode
+    onCloseWindow: () => void
+    openedWindow: boolean
+    visibleLoadingOverlay: boolean
 }
 
 
 export const ModalWindow = (
     {
-        children,
-        variantBtn = 'filled',
-        radiusBtn = 'xl',
-        titleBtn,
-        titleWindow
+        content,
+        titleWindow,
+        controlBtn,
+        onCloseWindow,
+        openedWindow,
+        visibleLoadingOverlay
     }: ModalWindowProps) => {
 
-    const opened = useAppSelector(state => state.modal.isOpenCreatingPack)
-    const visible = useAppSelector(state => state.cardsPack.creatingPack)
-    const dispatch = useAppDispatch()
-
+    const theme = useMantineTheme();
 
 
     return (
         <>
             <Modal centered
                    size={'lg'}
-                   opened={opened}
+                   opened={openedWindow}
                    title={titleWindow}
                    styles={{close:{color: 'red'}}}
+                   overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
+                   overlayOpacity={0.55}
                    overlayBlur={3}
                    transition="fade"
-                   onClose={() => dispatch(setOpened(false))}
+                   onClose={onCloseWindow}
             >
-                <LoadingOverlay visible={visible}/>
+                <LoadingOverlay visible={visibleLoadingOverlay}/>
                 <Divider mb={30}/>
-                {children}
+                {content}
             </Modal>
-            <Button variant={variantBtn} radius={radiusBtn}
-                    onClick={() => dispatch(setOpened(!opened))}>{titleBtn}</Button>
+            {controlBtn}
         </>
     );
 };

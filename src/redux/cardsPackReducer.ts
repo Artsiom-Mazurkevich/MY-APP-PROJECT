@@ -1,7 +1,7 @@
 import {ThunkType} from "./store";
 import {cardsAPI} from "../API/API";
 import {showStatusMessage} from "../Loader&Notifications/Notification";
-import {setOpened} from "./modalReducer";
+import {setCreatingPack} from "./modalReducer";
 
 
 const initialState = {
@@ -100,7 +100,7 @@ export const createPackThunk = (name: string, isPrivate: boolean): ThunkType => 
     dispatch(setIsCreatingPack(true))
     cardsAPI.createPack(name, isPrivate)
         .then(res => {
-            dispatch(setOpened(false))
+            dispatch(setCreatingPack(false))
             dispatch(setIsCreatingPack(false))
             showStatusMessage('Pack added successful 😃', 'green')
             console.log(res)

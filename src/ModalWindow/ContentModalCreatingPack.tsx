@@ -5,7 +5,7 @@ import {useForm} from "@mantine/hooks";
 import {createPackThunk} from "../redux/cardsPackReducer";
 import {useAppDispatch} from "../redux/store";
 
-const ModalContentCreatingPack = () => {
+const ContentModalCreatingPack = () => {
 
     const dispatch = useAppDispatch()
 
@@ -25,7 +25,6 @@ const ModalContentCreatingPack = () => {
 
     const onSubmitHandler = (title: string, isPrivate: boolean) => {
         dispatch(createPackThunk(title,isPrivate))
-        // createPackThunk(form.values.title, form.values.isPrivate)
     }
 
 
@@ -48,4 +47,4 @@ const ModalContentCreatingPack = () => {
     );
 };
 
-export {ModalContentCreatingPack};
+export {ContentModalCreatingPack};
